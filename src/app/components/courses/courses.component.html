@@ -1,0 +1,33 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/courses/form">Add Course</button>
+        <div class="alert alert-info" *ngIf="list?.length==0">Not Data Found</div>
+        <table class="table table-hover table-striped" *ngIf="list?.length>0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Students</th>
+                    <th>Tests</th>
+                    <th>Create At</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of list">
+                    <td>{{course.id}}</td>
+                    <td>{{course.name}}</td>
+                    <td><button class="btn btn-info btn-sm" [routerLink]="['/courses/add-students/', course.id]">Add Students - ({{course.students.length}})</button></td>
+                    <td><button class="btn btn-info btn-sm" [routerLink]="['/courses/add-tests/', course.id]">Add Tests - ({{course.tests.length}})</button></td>
+                    <td>{{course.createAt | date: 'yyyy/MM/dd' }}</td>
+                    <td><button class="btn btn-secondary btn-sm" [routerLink]="['/courses/form/', course.id]">Edit</button></td>
+                    <td><button class="btn btn-danger btn-sm" (click)="delete(course)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator class="float-left mx-2" [length]="totalRegistered" [pageSize]="totalPerPage" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions" (page)="paginator($event)" showFirstLastButtons aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>

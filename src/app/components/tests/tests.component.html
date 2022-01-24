@@ -1,0 +1,31 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/tests/form">Add Test</button>
+        <div class="alert alert-info" *ngIf="list?.length==0">Not Data Found</div>
+        <table class="table table-hover table-striped" *ngIf="list?.length>0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Questions</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let test of list">
+                    <td>{{test.id}}</td>
+                    <td>{{test.name}}</td>
+                    <td>{{test.subjectFather.name}} -> {{test.subjectSon.name}}</td>
+                    <td>{{test.questions.length}}</td>
+                    <td><button class="btn btn-secondary btn-sm" [routerLink]="['/tests/form/', test.id]">Edit</button></td>
+                    <td><button class="btn btn-danger btn-sm" (click)="delete(test)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator class="float-left mx-2" [length]="totalRegistered" [pageSize]="totalPerPage" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions" (page)="paginator($event)" showFirstLastButtons aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <button class="btn btn-danger my-2" routerLink="/courses">Back</button>
+        <form>
+            <div class="from-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="model.name" id="name">
+                <div class="alert alert-danger" *ngIf="errors?.name">{{errors.name}}</div>
+            </div>
+            <div class="from-group">
+                <button class="btn btn-primary my-3" type="button" (click)="model.id? edit(): create()">{{model.id? 'Edit': 'Create'}}</button>
+            </div>
+        </form>
+    </div>
+</div>

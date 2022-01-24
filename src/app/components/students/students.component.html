@@ -1,0 +1,38 @@
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/students/form">Add Student</button>
+        <div class="alert alert-info" *ngIf="list?.length==0">Not Data Found</div>
+        <table class="table table-hover table-striped" *ngIf="list?.length>0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Create At</th>
+                    <th>Tests</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of list">
+                    <td>{{student.id}}</td>
+                    <td><img *ngIf="student.photoHashCode" src="baseEndPoint+'/uploads/img/'+student.id+'?photoHashCode='+student.photoHashCode" class="img-thumbnail rounded" style="width: 64px; cursor: pointer">
+                        <img *ngIf="!student.photoHashCode" src="/assets/images/no-image-available.jpg" class="img-thumbnail rounded" style="width: 64px; cursor: pointer"></td>
+                    <td>{{student.name}}</td>
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.createAt | date: 'yyyy/MM/dd' }}</td>
+                    <td><button class="btn btn-primary btn-sm" [routerLink]="['/students/answer-test/', student.id]">Answer</button></td>
+                    <td><button class="btn btn-secondary btn-sm" [routerLink]="['/students/form/', student.id]">Edit</button></td>
+                    <td><button class="btn btn-danger btn-sm" (click)="delete(student)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator class="float-left mx-2" [length]="totalRegistered" [pageSize]="totalPerPage" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions" (page)="paginator($event)" showFirstLastButtons aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>
